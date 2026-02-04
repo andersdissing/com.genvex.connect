@@ -1,0 +1,12 @@
+{
+  "pair": {
+    "ip_address": {
+      "title": "Indtast enhedsdetaljer"
+    }
+  },
+  "settings": {
+    "ip_address": "IP-adresse",
+    "email": "Email",
+    "poll_interval": "Poll interval"
+  }
+}

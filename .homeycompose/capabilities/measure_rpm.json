@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": { "en": "Fan RPM", "da": "Bl\u00e6ser RPM" },
+  "units": { "en": "RPM" },
+  "min": 0,
+  "max": 10000,
+  "step": 1,
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/rpm.svg"
+}

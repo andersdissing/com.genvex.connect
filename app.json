@@ -1,0 +1,618 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.genvex.connect",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Genvex Connect",
+    "da": "Genvex Connect"
+  },
+  "description": {
+    "en": "Monitor and control your Genvex ventilation system with heat recovery directly from Homey",
+    "da": "Overvåg og styr dit Genvex ventilationsanlæg med varmegenvinding direkte fra Homey"
+  },
+  "brandColor": "#c00d0d",
+  "category": "climate",
+  "tags": {
+    "en": [
+      "genvex",
+      "ventilation",
+      "hvac",
+      "heat recovery",
+      "nabto",
+      "optima"
+    ],
+    "da": [
+      "genvex",
+      "ventilation",
+      "varmegenvinding",
+      "nabto",
+      "optima"
+    ]
+  },
+  "author": {
+    "name": "Anders Dissing"
+  },
+  "support": "https://github.com/andersdissing/com.genvex.connect/issues",
+  "homeyCommunityTopicId": 150572,
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "temperature_changed",
+        "title": {
+          "en": "A temperature changed",
+          "da": "En temperatur ændrede sig"
+        },
+        "tokens": [
+          {
+            "name": "supply",
+            "type": "number",
+            "title": {
+              "en": "Supply",
+              "da": "Indblæsning"
+            },
+            "example": 22.5
+          },
+          {
+            "name": "outside",
+            "type": "number",
+            "title": {
+              "en": "Outside",
+              "da": "Ude"
+            },
+            "example": 5
+          },
+          {
+            "name": "extract",
+            "type": "number",
+            "title": {
+              "en": "Extract",
+              "da": "Udsugning"
+            },
+            "example": 21
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          }
+        ]
+      },
+      {
+        "id": "alarm_triggered",
+        "title": {
+          "en": "An alarm was triggered",
+          "da": "En alarm blev udløst"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          }
+        ]
+      },
+      {
+        "id": "bypass_changed",
+        "title": {
+          "en": "Bypass state changed",
+          "da": "Bypass tilstand ændret"
+        },
+        "tokens": [
+          {
+            "name": "active",
+            "type": "boolean",
+            "title": {
+              "en": "Active",
+              "da": "Aktiv"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "bypass_is_active",
+        "title": {
+          "en": "Bypass is !{{active|inactive}}",
+          "da": "Bypass er !{{aktiv|inaktiv}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          }
+        ]
+      },
+      {
+        "id": "fan_level_is",
+        "title": {
+          "en": "Fan level is equal to",
+          "da": "Blæsertrin er lig med"
+        },
+        "titleFormatted": {
+          "en": "Fan level is equal to [[level]]",
+          "da": "Blæsertrin er lig med [[level]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          },
+          {
+            "name": "level",
+            "type": "dropdown",
+            "title": {
+              "en": "Level",
+              "da": "Trin"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Level 1",
+                  "da": "Trin 1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Level 2",
+                  "da": "Trin 2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Level 3",
+                  "da": "Trin 3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Level 4",
+                  "da": "Trin 4"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "set_fan_level",
+        "title": {
+          "en": "Set fan level",
+          "da": "Sæt blæsertrin"
+        },
+        "titleFormatted": {
+          "en": "Set fan level to [[level]]",
+          "da": "Sæt blæsertrin til [[level]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          },
+          {
+            "name": "level",
+            "type": "dropdown",
+            "title": {
+              "en": "Level",
+              "da": "Trin"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Level 1",
+                  "da": "Trin 1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Level 2",
+                  "da": "Trin 2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Level 3",
+                  "da": "Trin 3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Level 4",
+                  "da": "Trin 4"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_temperature",
+        "title": {
+          "en": "Set temperature",
+          "da": "Sæt temperatur"
+        },
+        "titleFormatted": {
+          "en": "Set temperature to [[temperature]] °C",
+          "da": "Sæt temperatur til [[temperature]] °C"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          },
+          {
+            "name": "temperature",
+            "type": "number",
+            "title": {
+              "en": "Temperature",
+              "da": "Temperatur"
+            },
+            "min": 10,
+            "max": 30,
+            "step": 0.5,
+            "placeholder": {
+              "en": "Temperature (°C)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Genvex Optima 270",
+        "da": "Genvex Optima 270"
+      },
+      "class": "fan",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/optima270/assets/images/small.png",
+        "large": "/drivers/optima270/assets/images/large.png",
+        "xlarge": "/drivers/optima270/assets/images/xlarge.png"
+      },
+      "capabilities": [
+        "target_temperature",
+        "measure_temperature.supply",
+        "measure_temperature.outside",
+        "measure_temperature.extract",
+        "measure_temperature.exhaust",
+        "measure_humidity",
+        "genvex_fan_level",
+        "measure_fan_speed",
+        "measure_rpm.supply",
+        "measure_rpm.extract",
+        "alarm_bypass",
+        "alarm_generic",
+        "genvex_reheat"
+      ],
+      "capabilitiesOptions": {
+        "target_temperature": {
+          "title": {
+            "en": "Temperature Setpoint",
+            "da": "Temperatur setpunkt"
+          },
+          "min": 10,
+          "max": 30,
+          "step": 0.5
+        },
+        "measure_temperature.supply": {
+          "title": {
+            "en": "Supply Temperature",
+            "da": "Indblæsningstemperatur"
+          }
+        },
+        "measure_temperature.outside": {
+          "title": {
+            "en": "Outside Temperature",
+            "da": "Udetemperatur"
+          }
+        },
+        "measure_temperature.extract": {
+          "title": {
+            "en": "Extract Temperature",
+            "da": "Udsugningstemperatur"
+          }
+        },
+        "measure_temperature.exhaust": {
+          "title": {
+            "en": "Exhaust Temperature",
+            "da": "Afkasttemperatur"
+          }
+        },
+        "measure_rpm.supply": {
+          "title": {
+            "en": "Supply Fan RPM",
+            "da": "Indblæsning RPM"
+          }
+        },
+        "measure_rpm.extract": {
+          "title": {
+            "en": "Extract Fan RPM",
+            "da": "Udsugning RPM"
+          }
+        },
+        "alarm_generic": {
+          "title": {
+            "en": "Alarm",
+            "da": "Alarm"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageConstant": 50
+        }
+      },
+      "pair": [
+        {
+          "id": "ip_address"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "optima270",
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Connection",
+            "da": "Forbindelse"
+          },
+          "children": [
+            {
+              "id": "ip_address",
+              "type": "text",
+              "label": {
+                "en": "IP Address",
+                "da": "IP-adresse"
+              },
+              "value": "",
+              "hint": {
+                "en": "Device IP address on your local network"
+              }
+            },
+            {
+              "id": "email",
+              "type": "text",
+              "label": {
+                "en": "Email",
+                "da": "Email"
+              },
+              "value": "",
+              "hint": {
+                "en": "Email registered in the Genvex/Nilan app (case-sensitive)"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Polling",
+            "da": "Polling"
+          },
+          "children": [
+            {
+              "id": "poll_interval",
+              "type": "number",
+              "label": {
+                "en": "Poll Interval (seconds)",
+                "da": "Poll interval (sekunder)"
+              },
+              "value": 30,
+              "min": 10,
+              "max": 300,
+              "step": 5,
+              "hint": {
+                "en": "How often to read sensor data from the device"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device Info",
+            "da": "Enhedsinfo"
+          },
+          "children": [
+            {
+              "id": "device_id",
+              "type": "label",
+              "label": {
+                "en": "Device ID",
+                "da": "Enheds-ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "device_model",
+              "type": "label",
+              "label": {
+                "en": "Device Model",
+                "da": "Enhedsmodel"
+              },
+              "value": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "alarm_bypass": {
+      "type": "boolean",
+      "title": {
+        "en": "Bypass Active",
+        "da": "Bypass aktiv"
+      },
+      "desc": {
+        "en": "Heat exchanger bypass is open"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/bypass.svg"
+    },
+    "genvex_fan_level": {
+      "type": "enum",
+      "title": {
+        "en": "Fan Level",
+        "da": "Blæsertrin"
+      },
+      "desc": {
+        "en": "Ventilation fan level (1-4)"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Level 1",
+            "da": "Trin 1"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Level 2",
+            "da": "Trin 2"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Level 3",
+            "da": "Trin 3"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Level 4",
+            "da": "Trin 4"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "icon": "/assets/capabilities/fan.svg"
+    },
+    "genvex_filter_days": {
+      "type": "number",
+      "title": {
+        "en": "Filter Days",
+        "da": "Filter dage"
+      },
+      "desc": {
+        "en": "Days since last filter change"
+      },
+      "units": {
+        "en": "days",
+        "da": "dage"
+      },
+      "min": 0,
+      "max": 65535,
+      "step": 1,
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "genvex_reheat": {
+      "type": "boolean",
+      "title": {
+        "en": "Reheating",
+        "da": "Eftervarme"
+      },
+      "desc": {
+        "en": "Reheating function"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle"
+    },
+    "measure_fan_speed": {
+      "type": "number",
+      "title": {
+        "en": "Fan Speed",
+        "da": "Blæserhastighed"
+      },
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/fan_speed.svg"
+    },
+    "measure_rpm": {
+      "type": "number",
+      "title": {
+        "en": "Fan RPM",
+        "da": "Blæser RPM"
+      },
+      "units": {
+        "en": "RPM"
+      },
+      "min": 0,
+      "max": 10000,
+      "step": 1,
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/rpm.svg"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+.homeybuild/
+env.json
+*.log
+.DS_Store
+.vscode/
+DEVELOPMENT_WITHOUT_DOCKER.md
+IMPLEMENTATION_NOTES.md
+TODO.md
+.claude/
+null
+nul

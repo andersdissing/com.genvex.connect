@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": { "en": "Bypass Active", "da": "Bypass aktiv" },
+  "desc": { "en": "Heat exchanger bypass is open" },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/bypass.svg"
+}

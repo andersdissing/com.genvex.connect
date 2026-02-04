@@ -1,0 +1,12 @@
+{
+  "type": "number",
+  "title": { "en": "Fan Speed", "da": "Blæserhastighed" },
+  "min": 1,
+  "max": 4,
+  "step": 1,
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/fan_speed.svg"
+}

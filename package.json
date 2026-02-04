@@ -1,0 +1,14 @@
+{
+  "name": "com.genvex.connect",
+  "version": "1.0.0",
+  "main": "app.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  },
+  "dependencies": {
+    "homey": "^3.12.2"
+  }
+}

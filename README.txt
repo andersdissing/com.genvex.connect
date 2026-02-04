@@ -1,0 +1,3 @@
+Genvex Connect lets you monitor and control your Genvex ventilation system with heat recovery directly from Homey. Adjust fan speed, set target temperatures, and keep track of supply, extract, and outside temperatures in real time over your local network.
+
+Currently supports the Genvex Optima 270 connected via Nabto. Integrate your ventilation unit into Homey flows to automate indoor climate based on schedules, sensor readings, or other smart home events.

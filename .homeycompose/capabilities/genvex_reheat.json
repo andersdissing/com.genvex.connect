@@ -1,0 +1,8 @@
+{
+  "type": "boolean",
+  "title": { "en": "Reheating", "da": "Eftervarme" },
+  "desc": { "en": "Reheating function" },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "toggle"
+}

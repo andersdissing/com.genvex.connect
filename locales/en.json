@@ -1,0 +1,12 @@
+{
+  "pair": {
+    "ip_address": {
+      "title": "Enter Device Details"
+    }
+  },
+  "settings": {
+    "ip_address": "IP Address",
+    "email": "Email",
+    "poll_interval": "Poll Interval"
+  }
+}

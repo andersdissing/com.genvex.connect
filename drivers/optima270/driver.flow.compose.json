@@ -1,0 +1,115 @@
+{
+  "triggers": [
+    {
+      "id": "temperature_changed",
+      "title": { "en": "A temperature changed", "da": "En temperatur \u00e6ndrede sig" },
+      "tokens": [
+        {
+          "name": "supply",
+          "type": "number",
+          "title": { "en": "Supply", "da": "Indbl\u00e6sning" },
+          "example": 22.5
+        },
+        {
+          "name": "outside",
+          "type": "number",
+          "title": { "en": "Outside", "da": "Ude" },
+          "example": 5.0
+        },
+        {
+          "name": "extract",
+          "type": "number",
+          "title": { "en": "Extract", "da": "Udsugning" },
+          "example": 21.0
+        }
+      ]
+    },
+    {
+      "id": "alarm_triggered",
+      "title": { "en": "An alarm was triggered", "da": "En alarm blev udl\u00f8st" }
+    },
+    {
+      "id": "bypass_changed",
+      "title": { "en": "Bypass state changed", "da": "Bypass tilstand \u00e6ndret" },
+      "tokens": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "title": { "en": "Active", "da": "Aktiv" }
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "bypass_is_active",
+      "title": { "en": "Bypass is !{{active|inactive}}", "da": "Bypass er !{{aktiv|inaktiv}}" }
+    },
+    {
+      "id": "fan_level_is",
+      "title": {
+        "en": "Fan level is equal to",
+        "da": "Bl\u00e6sertrin er lig med"
+      },
+      "titleFormatted": {
+        "en": "Fan level is equal to [[level]]",
+        "da": "Bl\u00e6sertrin er lig med [[level]]"
+      },
+      "args": [
+        {
+          "name": "level",
+          "type": "dropdown",
+          "title": { "en": "Level", "da": "Trin" },
+          "values": [
+            { "id": "1", "title": { "en": "Level 1", "da": "Trin 1" } },
+            { "id": "2", "title": { "en": "Level 2", "da": "Trin 2" } },
+            { "id": "3", "title": { "en": "Level 3", "da": "Trin 3" } },
+            { "id": "4", "title": { "en": "Level 4", "da": "Trin 4" } }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "set_fan_level",
+      "title": { "en": "Set fan level", "da": "S\u00e6t bl\u00e6sertrin" },
+      "titleFormatted": {
+        "en": "Set fan level to [[level]]",
+        "da": "S\u00e6t bl\u00e6sertrin til [[level]]"
+      },
+      "args": [
+        {
+          "name": "level",
+          "type": "dropdown",
+          "title": { "en": "Level", "da": "Trin" },
+          "values": [
+            { "id": "1", "title": { "en": "Level 1", "da": "Trin 1" } },
+            { "id": "2", "title": { "en": "Level 2", "da": "Trin 2" } },
+            { "id": "3", "title": { "en": "Level 3", "da": "Trin 3" } },
+            { "id": "4", "title": { "en": "Level 4", "da": "Trin 4" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "set_temperature",
+      "title": { "en": "Set temperature", "da": "S\u00e6t temperatur" },
+      "titleFormatted": {
+        "en": "Set temperature to [[temperature]] \u00b0C",
+        "da": "S\u00e6t temperatur til [[temperature]] \u00b0C"
+      },
+      "args": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "title": { "en": "Temperature", "da": "Temperatur" },
+          "min": 10,
+          "max": 30,
+          "step": 0.5,
+          "placeholder": { "en": "Temperature (\u00b0C)" }
+        }
+      ]
+    }
+  ]
+}

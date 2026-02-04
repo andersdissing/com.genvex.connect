@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": { "en": "Filter Days", "da": "Filter dage" },
+  "desc": { "en": "Days since last filter change" },
+  "units": { "en": "days", "da": "dage" },
+  "min": 0,
+  "max": 65535,
+  "step": 1,
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
+}

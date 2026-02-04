@@ -1,0 +1,32 @@
+{
+  "id": "com.genvex.connect",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": ["local"],
+  "name": {
+    "en": "Genvex Connect",
+    "da": "Genvex Connect"
+  },
+  "description": {
+    "en": "Monitor and control your Genvex ventilation system with heat recovery directly from Homey",
+    "da": "Overvåg og styr dit Genvex ventilationsanlæg med varmegenvinding direkte fra Homey"
+  },
+  "brandColor": "#c00d0d",
+  "category": "climate",
+  "tags": {
+    "en": ["genvex", "ventilation", "hvac", "heat recovery", "nabto", "optima"],
+    "da": ["genvex", "ventilation", "varmegenvinding", "nabto", "optima"]
+  },
+  "author": {
+    "name": "Anders Dissing"
+  },
+  "support": "https://github.com/andersdissing/com.genvex.connect/issues",
+  "homeyCommunityTopicId": 150572,
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  }
+}
