@@ -1,0 +1,14 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Alarm Message",
+    "da": "Alarmbesked"
+  },
+  "desc": {
+    "en": "Current alarm message from the device"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm.svg"
+}

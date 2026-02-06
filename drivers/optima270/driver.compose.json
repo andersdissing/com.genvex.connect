@@ -24,6 +24,7 @@
     "measure_rpm.extract",
     "alarm_bypass",
     "alarm_generic",
+    "genvex_alarm_message",
     "genvex_reheat"
   ],
   "capabilitiesOptions": {

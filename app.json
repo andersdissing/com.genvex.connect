@@ -96,6 +96,17 @@
           "en": "An alarm was triggered",
           "da": "En alarm blev udløst"
         },
+        "tokens": [
+          {
+            "name": "alarm_message",
+            "type": "string",
+            "title": {
+              "en": "Alarm Message",
+              "da": "Alarmbesked"
+            },
+            "example": "Alarm code 1"
+          }
+        ],
         "args": [
           {
             "type": "device",
@@ -323,6 +334,7 @@
         "measure_rpm.extract",
         "alarm_bypass",
         "alarm_generic",
+        "genvex_alarm_message",
         "genvex_reheat"
       ],
       "capabilitiesOptions": {
@@ -502,6 +514,20 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/bypass.svg"
+    },
+    "genvex_alarm_message": {
+      "type": "string",
+      "title": {
+        "en": "Alarm Message",
+        "da": "Alarmbesked"
+      },
+      "desc": {
+        "en": "Current alarm message from the device"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm.svg"
     },
     "genvex_fan_level": {
       "type": "enum",

@@ -26,7 +26,15 @@
     },
     {
       "id": "alarm_triggered",
-      "title": { "en": "An alarm was triggered", "da": "En alarm blev udl\u00f8st" }
+      "title": { "en": "An alarm was triggered", "da": "En alarm blev udl\u00f8st" },
+      "tokens": [
+        {
+          "name": "alarm_message",
+          "type": "string",
+          "title": { "en": "Alarm Message", "da": "Alarmbesked" },
+          "example": "Alarm code 1"
+        }
+      ]
     },
     {
       "id": "bypass_changed",

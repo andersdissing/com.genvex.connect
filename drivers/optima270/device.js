@@ -27,6 +27,21 @@ const SETPOINT_CAPABILITY_MAP = {
 
 const RECONNECT_INTERVAL = 60000; // 1 minute
 
+// Map alarm codes to human-readable messages
+const ALARM_MESSAGES = {
+  0: '',
+  1: 'Alarm code 1',
+  2: 'Alarm code 2',
+  3: 'Alarm code 3',
+  4: 'Alarm code 4',
+  5: 'Alarm code 5'
+};
+
+function getAlarmMessage(alarmCode) {
+  if (alarmCode === 0) return '';
+  return ALARM_MESSAGES[alarmCode] || `Alarm code ${alarmCode}`;
+}
+
 class Optima270Device extends Homey.Device {
 
   async onInit() {
@@ -48,6 +63,7 @@ class Optima270Device extends Homey.Device {
       'measure_rpm.extract',
       'alarm_bypass',
       'alarm_generic',
+      'genvex_alarm_message',
       'genvex_reheat'
     ];
     // Remove old subcapabilities from previous versions
@@ -211,9 +227,14 @@ class Optima270Device extends Homey.Device {
       this._triggerTemperatureChanged.trigger(this, tokens).catch(() => {});
     }
 
-    // Alarm trigger
-    if (capId === 'alarm_generic' && value !== 0) {
-      this._triggerAlarm.trigger(this).catch(() => {});
+    // Alarm trigger: set or clear the alarm message
+    if (capId === 'alarm_generic') {
+      const message = getAlarmMessage(value);
+      this._safeSetCapability('genvex_alarm_message', message);
+
+      if (value !== 0) {
+        this._triggerAlarm.trigger(this, { alarm_message: message }).catch(() => {});
+      }
     }
 
     // Bypass changed trigger
