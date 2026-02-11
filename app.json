@@ -53,6 +53,10 @@
           "en": "A temperature changed",
           "da": "En temperatur ændrede sig"
         },
+        "titleFormatted": {
+          "en": "A temperature changed",
+          "da": "En temperatur ændrede sig"
+        },
         "tokens": [
           {
             "name": "supply",
@@ -96,6 +100,10 @@
           "en": "An alarm was triggered",
           "da": "En alarm blev udløst"
         },
+        "titleFormatted": {
+          "en": "An alarm was triggered",
+          "da": "En alarm blev udløst"
+        },
         "args": [
           {
             "type": "device",
@@ -107,6 +115,10 @@
       {
         "id": "bypass_changed",
         "title": {
+          "en": "Bypass state changed",
+          "da": "Bypass tilstand ændret"
+        },
+        "titleFormatted": {
           "en": "Bypass state changed",
           "da": "Bypass tilstand ændret"
         },
@@ -133,6 +145,10 @@
       {
         "id": "bypass_is_active",
         "title": {
+          "en": "Bypass is !{{active|inactive}}",
+          "da": "Bypass er !{{aktiv|inaktiv}}"
+        },
+        "titleFormatted": {
           "en": "Bypass is !{{active|inactive}}",
           "da": "Bypass er !{{aktiv|inaktiv}}"
         },
@@ -289,6 +305,24 @@
             }
           }
         ]
+      },
+      {
+        "id": "reset_filter_counter",
+        "title": {
+          "en": "Reset filter counter",
+          "da": "Nulstil filtertæller"
+        },
+        "titleFormatted": {
+          "en": "Reset filter counter",
+          "da": "Nulstil filtertæller"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=optima270"
+          }
+        ]
       }
     ]
   },
@@ -323,7 +357,9 @@
         "measure_rpm.extract",
         "alarm_bypass",
         "alarm_generic",
-        "genvex_reheat"
+        "genvex_alarm_message",
+        "genvex_reheat",
+        "genvex_filter_days"
       ],
       "capabilitiesOptions": {
         "target_temperature": {
@@ -503,6 +539,19 @@
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/bypass.svg"
     },
+    "genvex_alarm_message": {
+      "type": "string",
+      "title": {
+        "en": "Alarm Message",
+        "da": "Alarm besked"
+      },
+      "desc": {
+        "en": "Current alarm message from the device"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
     "genvex_fan_level": {
       "type": "enum",
       "title": {
@@ -550,8 +599,8 @@
     "genvex_filter_days": {
       "type": "number",
       "title": {
-        "en": "Filter Days",
-        "da": "Filter dage"
+        "en": "Days since filter change",
+        "da": "Dage siden filterskift"
       },
       "desc": {
         "en": "Days since last filter change"
@@ -566,7 +615,8 @@
       "decimals": 0,
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/calendar.svg"
     },
     "genvex_reheat": {
       "type": "boolean",

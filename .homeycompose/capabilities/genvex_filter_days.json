@@ -1,6 +1,6 @@
 {
   "type": "number",
-  "title": { "en": "Filter Days", "da": "Filter dage" },
+  "title": { "en": "Days since filter change", "da": "Dage siden filterskift" },
   "desc": { "en": "Days since last filter change" },
   "units": { "en": "days", "da": "dage" },
   "min": 0,
@@ -9,5 +9,6 @@
   "decimals": 0,
   "getable": true,
   "setable": false,
-  "uiComponent": "sensor"
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/calendar.svg"
 }

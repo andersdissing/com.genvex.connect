@@ -5,6 +5,7 @@ const {
   Optima270Datapoints,
   Optima270Setpoints
 } = require('../../lib/genvex/Optima270');
+const { getAlarmMessage } = require('../../lib/genvex/AlarmMessages');
 
 // Map from Optima270 register key -> Homey capability ID
 const DATAPOINT_CAPABILITY_MAP = {
@@ -22,7 +23,8 @@ const DATAPOINT_CAPABILITY_MAP = {
 const SETPOINT_CAPABILITY_MAP = {
   FAN_SPEED:     'genvex_fan_level',
   TEMP_SETPOINT: 'target_temperature',
-  REHEATING:     'genvex_reheat'
+  REHEATING:     'genvex_reheat',
+  FILTER_DAYS:   'genvex_filter_days'
 };
 
 const RECONNECT_INTERVAL = 60000; // 1 minute
@@ -48,7 +50,9 @@ class Optima270Device extends Homey.Device {
       'measure_rpm.extract',
       'alarm_bypass',
       'alarm_generic',
-      'genvex_reheat'
+      'genvex_alarm_message',
+      'genvex_reheat',
+      'genvex_filter_days'
     ];
     // Remove old subcapabilities from previous versions
     for (const old of ['measure_fan_speed.supply', 'measure_fan_speed.extract']) {
@@ -102,6 +106,11 @@ class Optima270Device extends Homey.Device {
     this.homey.flow.getActionCard('set_temperature')
       .registerRunListener(async (args, state) => {
         await this._writeSetpoint('temperatureSetpoint', args.temperature);
+      });
+
+    this.homey.flow.getActionCard('reset_filter_counter')
+      .registerRunListener(async (args, state) => {
+        await this._writeSetpoint('filterReset', 1);
       });
 
     // Connect
@@ -170,8 +179,19 @@ class Optima270Device extends Homey.Device {
       const reg = Optima270Datapoints[key];
       if (reg && reg.name === name) {
         // Convert boolean for indicator capabilities
-        if (capId === 'alarm_bypass' || capId === 'alarm_generic') {
+        if (capId === 'alarm_bypass') {
           this._safeSetCapability(capId, value !== 0);
+        } else if (capId === 'alarm_generic') {
+          const alarmCode = Math.round(value);
+          this._safeSetCapability(capId, alarmCode !== 0);
+          // Set or clear the alarm message based on the alarm code
+          if (alarmCode === 0) {
+            this._safeSetCapability('genvex_alarm_message', null);
+          } else {
+            const language = this.homey.i18n.getLanguage();
+            const message = getAlarmMessage(alarmCode, language);
+            this._safeSetCapability('genvex_alarm_message', message);
+          }
         } else {
           this._safeSetCapability(capId, value);
         }

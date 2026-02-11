@@ -2,7 +2,8 @@
   "triggers": [
     {
       "id": "temperature_changed",
-      "title": { "en": "A temperature changed", "da": "En temperatur \u00e6ndrede sig" },
+      "title": { "en": "A temperature changed", "da": "En temperatur ændrede sig" },
+      "titleFormatted": { "en": "A temperature changed", "da": "En temperatur ændrede sig" },
       "tokens": [
         {
           "name": "supply",
@@ -26,11 +27,13 @@
     },
     {
       "id": "alarm_triggered",
-      "title": { "en": "An alarm was triggered", "da": "En alarm blev udl\u00f8st" }
+      "title": { "en": "An alarm was triggered", "da": "En alarm blev udløst" },
+      "titleFormatted": { "en": "An alarm was triggered", "da": "En alarm blev udløst" }
     },
     {
       "id": "bypass_changed",
-      "title": { "en": "Bypass state changed", "da": "Bypass tilstand \u00e6ndret" },
+      "title": { "en": "Bypass state changed", "da": "Bypass tilstand ændret" },
+      "titleFormatted": { "en": "Bypass state changed", "da": "Bypass tilstand ændret" },
       "tokens": [
         {
           "name": "active",
@@ -43,7 +46,8 @@
   "conditions": [
     {
       "id": "bypass_is_active",
-      "title": { "en": "Bypass is !{{active|inactive}}", "da": "Bypass er !{{aktiv|inaktiv}}" }
+      "title": { "en": "Bypass is !{{active|inactive}}", "da": "Bypass er !{{aktiv|inaktiv}}" },
+      "titleFormatted": { "en": "Bypass is !{{active|inactive}}", "da": "Bypass er !{{aktiv|inaktiv}}" }
     },
     {
       "id": "fan_level_is",
@@ -94,10 +98,10 @@
     },
     {
       "id": "set_temperature",
-      "title": { "en": "Set temperature", "da": "S\u00e6t temperatur" },
+      "title": { "en": "Set temperature", "da": "Sæt temperatur" },
       "titleFormatted": {
-        "en": "Set temperature to [[temperature]] \u00b0C",
-        "da": "S\u00e6t temperatur til [[temperature]] \u00b0C"
+        "en": "Set temperature to [[temperature]] °C",
+        "da": "Sæt temperatur til [[temperature]] °C"
       },
       "args": [
         {
@@ -107,9 +111,14 @@
           "min": 10,
           "max": 30,
           "step": 0.5,
-          "placeholder": { "en": "Temperature (\u00b0C)" }
+          "placeholder": { "en": "Temperature (°C)" }
         }
       ]
+    },
+    {
+      "id": "reset_filter_counter",
+      "title": { "en": "Reset filter counter", "da": "Nulstil filtertæller" },
+      "titleFormatted": { "en": "Reset filter counter", "da": "Nulstil filtertæller" }
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": { "en": "Alarm Message", "da": "Alarm besked" },
+  "desc": { "en": "Current alarm message from the device" },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}
