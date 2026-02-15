@@ -23,6 +23,7 @@
     "measure_rpm.extract",
     "alarm_bypass",
     "alarm_generic",
+    "genvex_alarm_code",
     "genvex_alarm_message",
     "genvex_reheat",
     "genvex_filter_days"

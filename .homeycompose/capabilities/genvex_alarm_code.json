@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": { "en": "Alarm Code", "da": "Alarmkode" },
+  "desc": { "en": "Current alarm code from the device (0 = no alarm)" },
+  "min": 0,
+  "max": 255,
+  "step": 1,
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "uiComponent": null,
+  "icon": "/assets/capabilities/alarm.svg"
+}

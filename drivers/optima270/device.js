@@ -49,6 +49,7 @@ class Optima270Device extends Homey.Device {
       'measure_rpm.extract',
       'alarm_bypass',
       'alarm_generic',
+      'genvex_alarm_code',
       'genvex_alarm_message',
       'genvex_reheat',
       'genvex_filter_days'
@@ -82,7 +83,6 @@ class Optima270Device extends Homey.Device {
 
     // Flow card: triggers
     this._triggerTemperatureChanged = this.homey.flow.getDeviceTriggerCard('temperature_changed');
-    this._triggerAlarm = this.homey.flow.getDeviceTriggerCard('alarm_triggered');
     this._triggerBypassChanged = this.homey.flow.getDeviceTriggerCard('bypass_changed');
 
     // Flow card: conditions
@@ -183,6 +183,7 @@ class Optima270Device extends Homey.Device {
         } else if (capId === 'alarm_generic') {
           const alarmCode = Math.round(value);
           this._safeSetCapability(capId, alarmCode !== 0);
+          this._safeSetCapability('genvex_alarm_code', alarmCode);
           // Set or clear the alarm message based on the alarm code
           if (alarmCode === 0) {
             this._safeSetCapability('genvex_alarm_message', null);
@@ -227,11 +228,6 @@ class Optima270Device extends Homey.Device {
         extract: this.getCapabilityValue('measure_temperature.extract') || 0
       };
       this._triggerTemperatureChanged.trigger(this, tokens).catch(() => {});
-    }
-
-    // Alarm trigger
-    if (capId === 'alarm_generic' && value !== 0) {
-      this._triggerAlarm.trigger(this).catch(() => {});
     }
 
     // Bypass changed trigger

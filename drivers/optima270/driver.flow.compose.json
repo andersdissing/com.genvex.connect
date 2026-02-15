@@ -26,11 +26,6 @@
       ]
     },
     {
-      "id": "alarm_triggered",
-      "title": { "en": "An alarm was triggered", "da": "En alarm blev udløst" },
-      "titleFormatted": { "en": "An alarm was triggered", "da": "En alarm blev udløst" }
-    },
-    {
       "id": "bypass_changed",
       "title": { "en": "Bypass state changed", "da": "Bypass tilstand ændret" },
       "titleFormatted": { "en": "Bypass state changed", "da": "Bypass tilstand ændret" },

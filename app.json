@@ -95,24 +95,6 @@
         ]
       },
       {
-        "id": "alarm_triggered",
-        "title": {
-          "en": "An alarm was triggered",
-          "da": "En alarm blev udløst"
-        },
-        "titleFormatted": {
-          "en": "An alarm was triggered",
-          "da": "En alarm blev udløst"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=optima270"
-          }
-        ]
-      },
-      {
         "id": "bypass_changed",
         "title": {
           "en": "Bypass state changed",
@@ -356,6 +338,7 @@
         "measure_rpm.extract",
         "alarm_bypass",
         "alarm_generic",
+        "genvex_alarm_code",
         "genvex_alarm_message",
         "genvex_reheat",
         "genvex_filter_days"
@@ -537,6 +520,24 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/bypass.svg"
+    },
+    "genvex_alarm_code": {
+      "type": "number",
+      "title": {
+        "en": "Alarm Code",
+        "da": "Alarmkode"
+      },
+      "desc": {
+        "en": "Current alarm code from the device (0 = no alarm)"
+      },
+      "min": 0,
+      "max": 255,
+      "step": 1,
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "uiComponent": null,
+      "icon": "/assets/capabilities/alarm.svg"
     },
     "genvex_alarm_message": {
       "type": "string",
