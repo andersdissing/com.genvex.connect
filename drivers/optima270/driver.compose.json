@@ -18,7 +18,6 @@
     "measure_temperature.extract",
     "measure_temperature.exhaust",
     "measure_humidity",
-    "genvex_fan_level",
     "measure_fan_speed",
     "measure_rpm.supply",
     "measure_rpm.extract",

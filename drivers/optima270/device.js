@@ -21,7 +21,7 @@ const DATAPOINT_CAPABILITY_MAP = {
 };
 
 const SETPOINT_CAPABILITY_MAP = {
-  FAN_SPEED:     'genvex_fan_level',
+  FAN_SPEED:     'measure_fan_speed',
   TEMP_SETPOINT: 'target_temperature',
   REHEATING:     'genvex_reheat',
   FILTER_DAYS:   'genvex_filter_days'
@@ -44,7 +44,6 @@ class Optima270Device extends Homey.Device {
       'measure_temperature.extract',
       'measure_temperature.exhaust',
       'measure_humidity',
-      'genvex_fan_level',
       'measure_fan_speed',
       'measure_rpm.supply',
       'measure_rpm.extract',
@@ -54,8 +53,8 @@ class Optima270Device extends Homey.Device {
       'genvex_reheat',
       'genvex_filter_days'
     ];
-    // Remove old subcapabilities from previous versions
-    for (const old of ['measure_fan_speed.supply', 'measure_fan_speed.extract']) {
+    // Remove old capabilities from previous versions
+    for (const old of ['measure_fan_speed.supply', 'measure_fan_speed.extract', 'genvex_fan_level']) {
       if (this.hasCapability(old)) {
         this.log(`Removing old capability: ${old}`);
         await this.removeCapability(old);
@@ -69,7 +68,7 @@ class Optima270Device extends Homey.Device {
     }
 
     // Register capability listeners for writable setpoints
-    this.registerCapabilityListener('genvex_fan_level', async (value) => {
+    this.registerCapabilityListener('measure_fan_speed', async (value) => {
       await this._writeSetpoint('fanSpeed', Number(value));
     });
 
@@ -94,7 +93,7 @@ class Optima270Device extends Homey.Device {
 
     this.homey.flow.getConditionCard('fan_level_is')
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue('genvex_fan_level') === args.level;
+        return this.getCapabilityValue('measure_fan_speed') === Number(args.level);
       });
 
     // Flow card: actions
@@ -206,11 +205,10 @@ class Optima270Device extends Homey.Device {
       if (reg && reg.name === name) {
         if (capId === 'genvex_reheat') {
           this._safeSetCapability(capId, value !== 0);
-        } else if (capId === 'genvex_fan_level') {
+        } else if (capId === 'measure_fan_speed') {
           const level = Math.round(value);
           if (level >= 1 && level <= 4) {
-            this._safeSetCapability(capId, String(level));
-            this._safeSetCapability('measure_fan_speed', level);
+            this._safeSetCapability(capId, level);
           }
         } else {
           this._safeSetCapability(capId, value);

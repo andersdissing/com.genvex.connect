@@ -351,7 +351,6 @@
         "measure_temperature.extract",
         "measure_temperature.exhaust",
         "measure_humidity",
-        "genvex_fan_level",
         "measure_fan_speed",
         "measure_rpm.supply",
         "measure_rpm.extract",
@@ -552,50 +551,6 @@
       "setable": false,
       "uiComponent": null
     },
-    "genvex_fan_level": {
-      "type": "enum",
-      "title": {
-        "en": "Fan Level",
-        "da": "Blæsertrin"
-      },
-      "desc": {
-        "en": "Ventilation fan level (1-4)"
-      },
-      "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "Level 1",
-            "da": "Trin 1"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "Level 2",
-            "da": "Trin 2"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "Level 3",
-            "da": "Trin 3"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "Level 4",
-            "da": "Trin 4"
-          }
-        }
-      ],
-      "getable": true,
-      "setable": true,
-      "uiComponent": "picker",
-      "icon": "/assets/capabilities/fan.svg"
-    },
     "genvex_filter_days": {
       "type": "number",
       "title": {
@@ -642,7 +597,7 @@
       "step": 1,
       "decimals": 0,
       "getable": true,
-      "setable": false,
+      "setable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/fan_speed.svg"
     },

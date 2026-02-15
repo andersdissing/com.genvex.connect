@@ -6,7 +6,7 @@
   "step": 1,
   "decimals": 0,
   "getable": true,
-  "setable": false,
+  "setable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/fan_speed.svg"
 }
