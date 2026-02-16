@@ -1,9 +1,11 @@
 {
   "id": "com.genvex.connect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": ["local"],
+  "platforms": [
+    "local"
+  ],
   "name": {
     "en": "Genvex Connect",
     "da": "Genvex Connect"
@@ -15,8 +17,21 @@
   "brandColor": "#c00d0d",
   "category": "climate",
   "tags": {
-    "en": ["genvex", "ventilation", "hvac", "heat recovery", "nabto", "optima"],
-    "da": ["genvex", "ventilation", "varmegenvinding", "nabto", "optima"]
+    "en": [
+      "genvex",
+      "ventilation",
+      "hvac",
+      "heat recovery",
+      "nabto",
+      "optima"
+    ],
+    "da": [
+      "genvex",
+      "ventilation",
+      "varmegenvinding",
+      "nabto",
+      "optima"
+    ]
   },
   "author": {
     "name": "Anders Dissing"
