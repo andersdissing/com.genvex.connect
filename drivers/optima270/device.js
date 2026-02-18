@@ -184,14 +184,15 @@ class Optima270Device extends Homey.Device {
           const alarmCode = Math.round(value);
           this._safeSetCapability(capId, alarmCode !== 0);
           this._safeSetCapability('genvex_alarm_code', alarmCode);
-          // Set or clear the alarm message based on the alarm code
-          if (alarmCode === 0) {
-            this._safeSetCapability('genvex_alarm_message', null);
-          } else {
-            const language = this.homey.i18n.getLanguage();
-            const message = getAlarmMessage(alarmCode, language);
-            this._safeSetCapability('genvex_alarm_message', message);
-          }
+          const language = this.homey.i18n.getLanguage();
+          const message = getAlarmMessage(alarmCode, language);
+          this._safeSetCapability('genvex_alarm_message', message);
+        } else if (capId === 'measure_rpm.supply' || capId === 'measure_rpm.extract') {
+          // RPM values: device may return negative sentinel values (e.g. -1) when
+          // no RPM sensor is present, or values exceeding the capability max.
+          // Clamp to valid range to prevent Homey from rejecting the value silently.
+          const rpm = Math.max(0, Math.round(value));
+          this._safeSetCapability(capId, rpm);
         } else {
           this._safeSetCapability(capId, value);
         }
