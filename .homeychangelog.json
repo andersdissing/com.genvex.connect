@@ -4,5 +4,8 @@
   },
   "1.1.0": {
     "en": "Added variable for alarm code and alarm messages. These can be used in flows"
+  },
+  "1.1.1": {
+    "en": "Mirror bug fixes"
   }
 }
