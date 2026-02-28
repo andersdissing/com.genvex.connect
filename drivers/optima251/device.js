@@ -2,13 +2,13 @@
 const Homey = require('homey');
 const { GenvexDevice } = require('../../lib/genvex');
 const {
-  Optima270Datapoints,
-  Optima270Setpoints,
-  Optima270Model
-} = require('../../lib/genvex/Optima270');
+  Optima251Datapoints,
+  Optima251Setpoints,
+  Optima251Model
+} = require('../../lib/genvex/Optima251');
 const { getAlarmMessage } = require('../../lib/genvex/AlarmMessages');
 
-// Map from Optima270 register key -> Homey capability ID
+// Map from Optima251 register key -> Homey capability ID
 const DATAPOINT_CAPABILITY_MAP = {
   TEMP_SUPPLY:       'measure_temperature.supply',
   TEMP_OUTSIDE:      'measure_temperature.outside',
@@ -24,16 +24,15 @@ const DATAPOINT_CAPABILITY_MAP = {
 const SETPOINT_CAPABILITY_MAP = {
   FAN_SPEED:     'measure_fan_speed',
   TEMP_SETPOINT: 'target_temperature',
-  REHEATING:     'genvex_reheat',
-  FILTER_DAYS:   'genvex_filter_days'
+  REHEATING:     'genvex_reheat'
 };
 
 const RECONNECT_INTERVAL = 60000; // 1 minute
 
-class Optima270Device extends Homey.Device {
+class Optima251Device extends Homey.Device {
 
   async onInit() {
-    this.log('Optima270 device initializing...');
+    this.log('Optima251 device initializing...');
     this.genvex = null;
     this.reconnectTimer = null;
 
@@ -52,8 +51,7 @@ class Optima270Device extends Homey.Device {
       'alarm_generic',
       'genvex_alarm_code',
       'genvex_alarm_message',
-      'genvex_reheat',
-      'genvex_filter_days'
+      'genvex_reheat'
     ];
     // Remove old capabilities from previous versions
     for (const old of ['measure_fan_speed.supply', 'measure_fan_speed.extract', 'genvex_fan_level']) {
@@ -83,32 +81,32 @@ class Optima270Device extends Homey.Device {
     });
 
     // Flow card: triggers
-    this._triggerTemperatureChanged = this.homey.flow.getDeviceTriggerCard('temperature_changed');
-    this._triggerBypassChanged = this.homey.flow.getDeviceTriggerCard('bypass_changed');
+    this._triggerTemperatureChanged = this.homey.flow.getDeviceTriggerCard('optima251_temperature_changed');
+    this._triggerBypassChanged = this.homey.flow.getDeviceTriggerCard('optima251_bypass_changed');
 
     // Flow card: conditions
-    this.homey.flow.getConditionCard('bypass_is_active')
+    this.homey.flow.getConditionCard('optima251_bypass_is_active')
       .registerRunListener(async (args, state) => {
         return this.getCapabilityValue('alarm_bypass') === true;
       });
 
-    this.homey.flow.getConditionCard('fan_level_is')
+    this.homey.flow.getConditionCard('optima251_fan_level_is')
       .registerRunListener(async (args, state) => {
         return this.getCapabilityValue('measure_fan_speed') === Number(args.level);
       });
 
     // Flow card: actions
-    this.homey.flow.getActionCard('set_fan_level')
+    this.homey.flow.getActionCard('optima251_set_fan_level')
       .registerRunListener(async (args, state) => {
         await this._writeSetpoint('fanSpeed', Number(args.level));
       });
 
-    this.homey.flow.getActionCard('set_temperature')
+    this.homey.flow.getActionCard('optima251_set_temperature')
       .registerRunListener(async (args, state) => {
         await this._writeSetpoint('temperatureSetpoint', args.temperature);
       });
 
-    this.homey.flow.getActionCard('reset_filter_counter')
+    this.homey.flow.getActionCard('optima251_reset_filter_counter')
       .registerRunListener(async (args, state) => {
         await this._writeSetpoint('filterReset', 1);
       });
@@ -139,7 +137,7 @@ class Optima270Device extends Homey.Device {
         ip,
         email,
         pollInterval,
-        model: Optima270Model
+        model: Optima251Model
       });
 
       this.genvex.on('data', ({ name, value, capability }) => {
@@ -177,7 +175,7 @@ class Optima270Device extends Homey.Device {
   _updateCapabilityFromName(name, value) {
     // Find the capability ID for this register name
     for (const [key, capId] of Object.entries(DATAPOINT_CAPABILITY_MAP)) {
-      const reg = Optima270Datapoints[key];
+      const reg = Optima251Datapoints[key];
       if (reg && reg.name === name) {
         // Convert boolean for indicator capabilities
         if (capId === 'alarm_bypass') {
@@ -195,9 +193,6 @@ class Optima270Device extends Homey.Device {
             this._safeSetCapability('genvex_alarm_message', null);
           }
         } else if (capId === 'measure_rpm.supply' || capId === 'measure_rpm.extract') {
-          // RPM values: device may return negative sentinel values (e.g. -1) when
-          // no RPM sensor is present, or values exceeding the capability max.
-          // Clamp to valid range to prevent Homey from rejecting the value silently.
           const rpm = Math.max(0, Math.round(value));
           this._safeSetCapability(capId, rpm);
         } else {
@@ -210,13 +205,13 @@ class Optima270Device extends Homey.Device {
       }
     }
     for (const [key, capId] of Object.entries(SETPOINT_CAPABILITY_MAP)) {
-      const reg = Optima270Setpoints[key];
+      const reg = Optima251Setpoints[key];
       if (reg && reg.name === name) {
         if (capId === 'genvex_reheat') {
           this._safeSetCapability(capId, value !== 0);
         } else if (capId === 'measure_fan_speed') {
           const level = Math.round(value);
-          if (level >= 1 && level <= 4) {
+          if (level >= 0 && level <= 4) {
             this._safeSetCapability(capId, level);
           }
         } else {
@@ -308,4 +303,4 @@ class Optima270Device extends Homey.Device {
   }
 }
 
-module.exports = Optima270Device;
+module.exports = Optima251Device;
