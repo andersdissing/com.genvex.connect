@@ -1,0 +1,56 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Connection", "da": "Forbindelse" },
+    "children": [
+      {
+        "id": "ip_address",
+        "type": "text",
+        "label": { "en": "IP Address", "da": "IP-adresse" },
+        "value": "",
+        "hint": { "en": "Device IP address on your local network" }
+      },
+      {
+        "id": "email",
+        "type": "text",
+        "label": { "en": "Email", "da": "Email" },
+        "value": "",
+        "hint": { "en": "Email registered in the Genvex/Nilan app (case-sensitive)" }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Polling", "da": "Polling" },
+    "children": [
+      {
+        "id": "poll_interval",
+        "type": "number",
+        "label": { "en": "Poll Interval (seconds)", "da": "Poll interval (sekunder)" },
+        "value": 30,
+        "min": 10,
+        "max": 300,
+        "step": 5,
+        "hint": { "en": "How often to read sensor data from the device" }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Device Info", "da": "Enhedsinfo" },
+    "children": [
+      {
+        "id": "device_id",
+        "type": "label",
+        "label": { "en": "Device ID", "da": "Enheds-ID" },
+        "value": ""
+      },
+      {
+        "id": "device_model",
+        "type": "label",
+        "label": { "en": "Device Model", "da": "Enhedsmodel" },
+        "value": ""
+      }
+    ]
+  }
+]

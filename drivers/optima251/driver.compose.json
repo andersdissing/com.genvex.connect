@@ -1,0 +1,80 @@
+{
+  "name": {
+    "en": "Genvex Optima 251",
+    "da": "Genvex Optima 251"
+  },
+  "class": "fan",
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "images": {
+    "small": "/drivers/optima251/assets/images/small.png",
+    "large": "/drivers/optima251/assets/images/large.png",
+    "xlarge": "/drivers/optima251/assets/images/xlarge.png"
+  },
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature.supply",
+    "measure_temperature.outside",
+    "measure_temperature.extract",
+    "measure_temperature.exhaust",
+    "measure_humidity",
+    "measure_fan_speed",
+    "measure_rpm.supply",
+    "measure_rpm.extract",
+    "alarm_bypass",
+    "alarm_generic",
+    "genvex_alarm_code",
+    "genvex_alarm_message",
+    "genvex_reheat"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "title": { "en": "Temperature Setpoint", "da": "Temperatur setpunkt" },
+      "min": 10,
+      "max": 30,
+      "step": 0.5
+    },
+    "measure_temperature.supply": {
+      "title": { "en": "Supply Temperature", "da": "Indbl\u00e6sningstemperatur" }
+    },
+    "measure_temperature.outside": {
+      "title": { "en": "Outside Temperature", "da": "Udetemperatur" }
+    },
+    "measure_temperature.extract": {
+      "title": { "en": "Extract Temperature", "da": "Udsugningstemperatur" }
+    },
+    "measure_temperature.exhaust": {
+      "title": { "en": "Exhaust Temperature", "da": "Afkasttemperatur" }
+    },
+    "measure_rpm.supply": {
+      "title": { "en": "Supply Fan RPM", "da": "Indbl\u00e6sning RPM" }
+    },
+    "measure_rpm.extract": {
+      "title": { "en": "Extract Fan RPM", "da": "Udsugning RPM" }
+    },
+    "alarm_generic": {
+      "title": { "en": "Alarm", "da": "Alarm" }
+    },
+    "measure_fan_speed": {
+      "min": 0
+    }
+  },
+  "energy": {
+    "approximation": {
+      "usageConstant": 50
+    }
+  },
+  "pair": [
+    {
+      "id": "ip_address"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    { "id": "add_devices", "template": "add_devices" }
+  ]
+}
