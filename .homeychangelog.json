@@ -10,5 +10,11 @@
   },
   "1.1.2": {
     "en": "Bug fix, alarm code 0 is not a alarm"
+  },
+  "1.2.0": {
+    "en": "Add Genvex Optima 251 driver for Genvex 400"
+  },
+  "1.2.1": {
+    "en": "added logging for flow not triggers"
   }
 }
