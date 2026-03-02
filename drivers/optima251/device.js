@@ -35,6 +35,7 @@ class Optima251Device extends Homey.Device {
     this.log('Optima251 device initializing...');
     this.genvex = null;
     this.reconnectTimer = null;
+    this._destroyed = false;
 
     // Ensure all required capabilities exist (migration for already-paired devices)
     const requiredCapabilities = [
@@ -156,6 +157,7 @@ class Optima251Device extends Homey.Device {
 
 
       this.genvex.on('disconnected', () => {
+        if (this._destroyed) return;
         this.log('Device disconnected');
         this.setUnavailable('Connection lost');
         this._scheduleReconnect();
@@ -193,7 +195,11 @@ class Optima251Device extends Homey.Device {
             this._safeSetCapability('genvex_alarm_message', null);
           }
         } else if (capId === 'measure_rpm.supply' || capId === 'measure_rpm.extract') {
-          const rpm = Math.max(0, Math.round(value));
+          // Clamp to valid range [0, 10000] to prevent Homey from rejecting
+          // the value silently. Device may return sentinel values or values
+          // exceeding the capability max.
+          const rpm = Math.min(10000, Math.max(0, Math.round(value)));
+          this.log(`[RPM] ${capId}: raw=${value}, clamped=${rpm}`);
           this._safeSetCapability(capId, rpm);
         } else {
           this._safeSetCapability(capId, value);
@@ -223,6 +229,7 @@ class Optima251Device extends Homey.Device {
   }
 
   _fireFlowTriggers(capId, name, value) {
+    this.log(`_fireFlowTriggers called: capId=${capId}, name=${name}, value=${value}`);
     // Temperature changed trigger
     if (capId.startsWith('measure_temperature.')) {
       const tokens = {
@@ -230,13 +237,17 @@ class Optima251Device extends Homey.Device {
         outside: this.getCapabilityValue('measure_temperature.outside') || 0,
         extract: this.getCapabilityValue('measure_temperature.extract') || 0
       };
-      this._triggerTemperatureChanged.trigger(this, tokens).catch(() => {});
+      this._triggerTemperatureChanged.trigger(this, tokens).catch((err) => {
+        this.log('Temperature trigger error:', err.message);
+      });
     }
 
     // Bypass changed trigger
     if (capId === 'alarm_bypass') {
       const active = value !== 0;
-      this._triggerBypassChanged.trigger(this, { active }).catch(() => {});
+      this._triggerBypassChanged.trigger(this, { active }).catch((err) => {
+        this.log('Bypass trigger error:', err.message);
+      });
     }
   }
 
@@ -287,6 +298,7 @@ class Optima251Device extends Homey.Device {
 
   async onDeleted() {
     this.log('Device deleted, cleaning up');
+    this._destroyed = true;
     this._clearReconnect();
     if (this.genvex) {
       this.genvex.disconnect();
@@ -295,6 +307,7 @@ class Optima251Device extends Homey.Device {
   }
 
   async onUninit() {
+    this._destroyed = true;
     this._clearReconnect();
     if (this.genvex) {
       this.genvex.disconnect();
