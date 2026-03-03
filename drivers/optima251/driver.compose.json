@@ -19,8 +19,8 @@
     "measure_temperature.exhaust",
     "measure_humidity",
     "measure_fan_speed",
-    "measure_rpm.supply",
-    "measure_rpm.extract",
+    "measure_duty_cycle.supply",
+    "measure_duty_cycle.extract",
     "alarm_bypass",
     "alarm_generic",
     "genvex_alarm_code",
@@ -46,11 +46,11 @@
     "measure_temperature.exhaust": {
       "title": { "en": "Exhaust Temperature", "da": "Afkasttemperatur" }
     },
-    "measure_rpm.supply": {
-      "title": { "en": "Supply Fan RPM", "da": "Indbl\u00e6sning RPM" }
+    "measure_duty_cycle.supply": {
+      "title": { "en": "Supply Fan Duty Cycle", "da": "Indblæsning driftsforhold" }
     },
-    "measure_rpm.extract": {
-      "title": { "en": "Extract Fan RPM", "da": "Udsugning RPM" }
+    "measure_duty_cycle.extract": {
+      "title": { "en": "Extract Fan Duty Cycle", "da": "Udsugning driftsforhold" }
     },
     "alarm_generic": {
       "title": { "en": "Alarm", "da": "Alarm" }
