@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.genvex.connect",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -603,8 +603,8 @@
         "measure_temperature.exhaust",
         "measure_humidity",
         "measure_fan_speed",
-        "measure_rpm.supply",
-        "measure_rpm.extract",
+        "measure_duty_cycle.supply",
+        "measure_duty_cycle.extract",
         "alarm_bypass",
         "alarm_generic",
         "genvex_alarm_code",
@@ -645,16 +645,16 @@
             "da": "Afkasttemperatur"
           }
         },
-        "measure_rpm.supply": {
+        "measure_duty_cycle.supply": {
           "title": {
-            "en": "Supply Fan RPM",
-            "da": "Indblæsning RPM"
+            "en": "Supply Fan Duty Cycle",
+            "da": "Indblæsning driftsforhold"
           }
         },
-        "measure_rpm.extract": {
+        "measure_duty_cycle.extract": {
           "title": {
-            "en": "Extract Fan RPM",
-            "da": "Udsugning RPM"
+            "en": "Extract Fan Duty Cycle",
+            "da": "Udsugning driftsforhold"
           }
         },
         "alarm_generic": {
@@ -1053,6 +1053,24 @@
       "getable": true,
       "setable": true,
       "uiComponent": "toggle"
+    },
+    "measure_duty_cycle": {
+      "type": "number",
+      "title": {
+        "en": "Fan Duty Cycle",
+        "da": "Blæser driftsforhold"
+      },
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/fan_speed.svg"
     },
     "measure_fan_speed": {
       "type": "number",

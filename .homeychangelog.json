@@ -16,5 +16,8 @@
   },
   "1.2.1": {
     "en": "added logging for flow not triggers"
+  },
+  "1.2.2": {
+    "en": "Added Genvex Optima 251 driver with Genvex 400 support, including fan RPM/duty cycle display and setpoint write fixes. And mirror bug fixes"
   }
 }
