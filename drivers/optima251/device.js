@@ -15,8 +15,8 @@ const DATAPOINT_CAPABILITY_MAP = {
   TEMP_EXHAUST:      'measure_temperature.exhaust',
   TEMP_EXTRACT:      'measure_temperature.extract',
   HUMIDITY:          'measure_humidity',
-  RPM_SUPPLY:        'measure_rpm.supply',
-  RPM_EXTRACT:       'measure_rpm.extract',
+  DUTYCYCLE_SUPPLY:  'measure_duty_cycle.supply',
+  DUTYCYCLE_EXTRACT: 'measure_duty_cycle.extract',
   BYPASS_ACTIVE:     'alarm_bypass',
   ALARM:             'alarm_generic'
 };
@@ -46,8 +46,8 @@ class Optima251Device extends Homey.Device {
       'measure_temperature.exhaust',
       'measure_humidity',
       'measure_fan_speed',
-      'measure_rpm.supply',
-      'measure_rpm.extract',
+      'measure_duty_cycle.supply',
+      'measure_duty_cycle.extract',
       'alarm_bypass',
       'alarm_generic',
       'genvex_alarm_code',
@@ -55,7 +55,7 @@ class Optima251Device extends Homey.Device {
       'genvex_reheat'
     ];
     // Remove old capabilities from previous versions
-    for (const old of ['measure_fan_speed.supply', 'measure_fan_speed.extract', 'genvex_fan_level']) {
+    for (const old of ['measure_fan_speed.supply', 'measure_fan_speed.extract', 'genvex_fan_level', 'measure_rpm.supply', 'measure_rpm.extract']) {
       if (this.hasCapability(old)) {
         this.log(`Removing old capability: ${old}`);
         await this.removeCapability(old);
@@ -88,28 +88,28 @@ class Optima251Device extends Homey.Device {
     // Flow card: conditions
     this.homey.flow.getConditionCard('optima251_bypass_is_active')
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue('alarm_bypass') === true;
+        return args.device.getCapabilityValue('alarm_bypass') === true;
       });
 
     this.homey.flow.getConditionCard('optima251_fan_level_is')
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue('measure_fan_speed') === Number(args.level);
+        return args.device.getCapabilityValue('measure_fan_speed') === Number(args.level);
       });
 
     // Flow card: actions
     this.homey.flow.getActionCard('optima251_set_fan_level')
       .registerRunListener(async (args, state) => {
-        await this._writeSetpoint('fanSpeed', Number(args.level));
+        await args.device._writeSetpoint('fanSpeed', Number(args.level));
       });
 
     this.homey.flow.getActionCard('optima251_set_temperature')
       .registerRunListener(async (args, state) => {
-        await this._writeSetpoint('temperatureSetpoint', args.temperature);
+        await args.device._writeSetpoint('temperatureSetpoint', args.temperature);
       });
 
     this.homey.flow.getActionCard('optima251_reset_filter_counter')
       .registerRunListener(async (args, state) => {
-        await this._writeSetpoint('filterReset', 1);
+        await args.device._writeSetpoint('filterReset', 1);
       });
 
     // Connect
@@ -194,13 +194,6 @@ class Optima251Device extends Homey.Device {
             this._safeSetCapability('genvex_alarm_code', null);
             this._safeSetCapability('genvex_alarm_message', null);
           }
-        } else if (capId === 'measure_rpm.supply' || capId === 'measure_rpm.extract') {
-          // Clamp to valid range [0, 10000] to prevent Homey from rejecting
-          // the value silently. Device may return sentinel values or values
-          // exceeding the capability max.
-          const rpm = Math.min(10000, Math.max(0, Math.round(value)));
-          this.log(`[RPM] ${capId}: raw=${value}, clamped=${rpm}`);
-          this._safeSetCapability(capId, rpm);
         } else {
           this._safeSetCapability(capId, value);
         }
