@@ -36,6 +36,7 @@ class Optima270Device extends Homey.Device {
     this.log('Optima270 device initializing...');
     this.genvex = null;
     this.reconnectTimer = null;
+    this._destroyed = false;
 
     // Ensure all required capabilities exist (migration for already-paired devices)
     const requiredCapabilities = [
@@ -158,6 +159,7 @@ class Optima270Device extends Homey.Device {
 
 
       this.genvex.on('disconnected', () => {
+        if (this._destroyed) return;
         this.log('Device disconnected');
         this.setUnavailable('Connection lost');
         this._scheduleReconnect();
@@ -197,8 +199,9 @@ class Optima270Device extends Homey.Device {
         } else if (capId === 'measure_rpm.supply' || capId === 'measure_rpm.extract') {
           // RPM values: device may return negative sentinel values (e.g. -1) when
           // no RPM sensor is present, or values exceeding the capability max.
-          // Clamp to valid range to prevent Homey from rejecting the value silently.
-          const rpm = Math.max(0, Math.round(value));
+          // Clamp to valid range [0, 10000] to prevent Homey from rejecting
+          // the value silently.
+          const rpm = Math.min(10000, Math.max(0, Math.round(value)));
           this._safeSetCapability(capId, rpm);
         } else {
           this._safeSetCapability(capId, value);
@@ -292,6 +295,7 @@ class Optima270Device extends Homey.Device {
 
   async onDeleted() {
     this.log('Device deleted, cleaning up');
+    this._destroyed = true;
     this._clearReconnect();
     if (this.genvex) {
       this.genvex.disconnect();
@@ -300,6 +304,7 @@ class Optima270Device extends Homey.Device {
   }
 
   async onUninit() {
+    this._destroyed = true;
     this._clearReconnect();
     if (this.genvex) {
       this.genvex.disconnect();
