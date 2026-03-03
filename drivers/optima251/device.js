@@ -87,28 +87,28 @@ class Optima251Device extends Homey.Device {
     // Flow card: conditions
     this.homey.flow.getConditionCard('optima251_bypass_is_active')
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue('alarm_bypass') === true;
+        return args.device.getCapabilityValue('alarm_bypass') === true;
       });
 
     this.homey.flow.getConditionCard('optima251_fan_level_is')
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue('measure_fan_speed') === Number(args.level);
+        return args.device.getCapabilityValue('measure_fan_speed') === Number(args.level);
       });
 
     // Flow card: actions
     this.homey.flow.getActionCard('optima251_set_fan_level')
       .registerRunListener(async (args, state) => {
-        await this._writeSetpoint('fanSpeed', Number(args.level));
+        await args.device._writeSetpoint('fanSpeed', Number(args.level));
       });
 
     this.homey.flow.getActionCard('optima251_set_temperature')
       .registerRunListener(async (args, state) => {
-        await this._writeSetpoint('temperatureSetpoint', args.temperature);
+        await args.device._writeSetpoint('temperatureSetpoint', args.temperature);
       });
 
     this.homey.flow.getActionCard('optima251_reset_filter_counter')
       .registerRunListener(async (args, state) => {
-        await this._writeSetpoint('filterReset', 1);
+        await args.device._writeSetpoint('filterReset', 1);
       });
 
     // Connect
