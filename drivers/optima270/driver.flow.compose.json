@@ -72,6 +72,7 @@
   "actions": [
     {
       "id": "set_fan_level",
+      "icon": "/assets/icon.svg",
       "title": { "en": "Set fan level", "da": "S\u00e6t bl\u00e6sertrin" },
       "titleFormatted": {
         "en": "Set fan level to [[level]]",
@@ -93,6 +94,7 @@
     },
     {
       "id": "set_temperature",
+      "icon": "/assets/icon.svg",
       "title": { "en": "Set temperature", "da": "Sæt temperatur" },
       "titleFormatted": {
         "en": "Set temperature to [[temperature]] °C",
@@ -112,6 +114,7 @@
     },
     {
       "id": "reset_filter_counter",
+      "icon": "/assets/icon.svg",
       "title": { "en": "Reset filter counter", "da": "Nulstil filtertæller" },
       "titleFormatted": { "en": "Reset filter counter", "da": "Nulstil filtertæller" }
     }
