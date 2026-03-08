@@ -19,5 +19,8 @@
   },
   "1.2.2": {
     "en": "Added Genvex Optima 251 driver with Genvex 400 support, including fan RPM/duty cycle display and setpoint write fixes. Resolves Genvex ECO 400 compatibility request."
+  },
+  "1.2.3": {
+    "en": "Fix driver and flow action icons"
   }
 }
